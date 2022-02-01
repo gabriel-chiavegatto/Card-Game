@@ -1,0 +1,48 @@
+body{
+    background: #EEF9BF;
+}
+header{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 56px;
+    line-height: 66px;
+    letter-spacing: -0.004em;
+    color: #75B79E;
+    padding-top: 40px;
+    padding-bottom: 30px;
+    text-align: center;
+}
+main{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 0 100px;
+}
+div{
+    background: #A7E9AF;
+    width: 117px;
+    height: 146px;
+    border: 1px solid #99CEA8;
+    box-sizing: border-box;
+    border-radius: 5px;
+    margin: 17px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+div img{
+    width: 100px;
+    height: 100px;
+}
+
+
+/* MOBILE */
+@media (max-width: 335px){
+
+header{
+    font-size: 36px;
+    line-height: 42px;
+}
+
+}
