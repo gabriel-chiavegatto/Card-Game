@@ -1,5 +1,6 @@
 let numeroDeCartas = null;
 const cartas = [];
+const gifs = ["bobrossparrot.gif", "explodyparrot.gif", "fiestaparrot.gif", "metalparrot.gif", "revertitparrot.gif", "tripletsparrot.gif", "unicornparrot.gif"]
 
 function quantidadeDeCartas() {
 
@@ -14,9 +15,12 @@ function quantidadeDeCartas() {
 
 function aplicarQuantidadeDeCartas() {
     const main = document.querySelector("main");
-    
-    for (let i = 0; i < numeroDeCartas; i++) {
-        cartas[i]=` <div class="carta" onclick="contadorJogadas()"><img src="bobrossparrot.gif" alt="gif"></div>`;
+    const pares = (numeroDeCartas / 2);
+    let gifNaCarta;
+    for (let i = 0; i < pares; i++) {
+        gifNaCarta = gifs[i];
+        cartas[i] = ` <div class="frente verso" onclick="contadorJogadas()"><img src=${gifNaCarta} alt="gif"></div>
+        <div class="frente verso" onclick="contadorJogadas()"><img src=${gifNaCarta} alt="gif"></div> `;
         main.innerHTML += `${cartas[i]}`;
     }
 
