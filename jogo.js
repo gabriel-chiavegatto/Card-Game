@@ -19,13 +19,33 @@ function aplicarQuantidadeDeCartas() {
     let gifNaCarta;
     for (let i = 0; i < pares; i++) {
         gifNaCarta = gifs[i];
-        cartas[i] = ` <div class="frente verso" onclick="contadorJogadas()"><img src=${gifNaCarta} alt="gif"></div>
-        <div class="frente verso" onclick="contadorJogadas()"><img src=${gifNaCarta} alt="gif"></div> `;
-        main.innerHTML += `${cartas[i]}`;
-    }
+        cartas[i] = `<div onclick="virarCarta(this)">
 
+        <img class ="verso" src="front.png" alt="papagaio">
+        <img class="frente escondido" src=${gifNaCarta} alt="gif">
+    </div>`
+    }
+    for (let j = 0; j < pares; j++) {
+        cartas.push(cartas[j]);
+    }
+    main.innerHTML = cartas;
 }
 
+
+function virarCarta(clique) {
+    clique.classList.add("clicked");
+    const trocarImg = document.querySelector(".clicked .verso");
+    if (trocarImg !== null) {
+        trocarImg.classList.add("escondido");
+        const colocaGif = document.querySelector(".clicked .frente");
+        colocaGif.classList.remove("escondido");
+    }
+
+
+
+
+    contadorJogadas();
+}
 // contador de jogadas
 let jogadas = 0;
 function contadorJogadas() {

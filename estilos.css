@@ -30,11 +30,29 @@ div{
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: 2s;
 }
+.clicked{
+    transform:rotateY(180deg);
+}
+
 div img{
     width: 100px;
     height: 100px;
 }
+.escondido{
+    display: none;
+}
+
+
+
+
+
+
+
+
+
+
 
 
 /* MOBILE */
