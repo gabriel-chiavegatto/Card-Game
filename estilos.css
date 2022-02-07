@@ -30,7 +30,7 @@ div{
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: 3200ms;
+    transition: 1000ms;
 }
 .rotacao{
     transform:rotateY(180deg);
