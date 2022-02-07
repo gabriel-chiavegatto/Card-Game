@@ -9,6 +9,8 @@ let teste = true;
 let tempo = 0;
 const relogio = document.querySelector("footer");
 
+let jogadas = 0;
+
 
 
 
@@ -19,6 +21,7 @@ function quantidadeDeCartas() {
     if (qntCartas >= 4 && qntCartas <= 14 && qntCartas % 2 == 0) {
         numeroDeCartas = qntCartas;
         pares = (numeroDeCartas / 2);
+        // tempo = setInterval(aumentaSegundos, 1000);
     } else {
         quantidadeDeCartas();
     }
@@ -31,25 +34,23 @@ function aplicarQuantidadeDeCartas() {
     let asCartas;
     for (let i = 0; i < pares; i++) {
         asCartas = gifs[i];
-        cartas[i] = `<div onclick="virarCarta(this)">
+        cartas[i] = `<div onclick="virarCarta(this)" data-identifier="card">
 
-        <img class="verso" src="front.png" alt="papagaio">
-        <img class="frente escondido" src=${asCartas} alt="gif">
+        <img class="verso" src="front.png" alt="papagaio" data-identifier="back-face">
+        <img class="frente escondido" src=${asCartas} alt="gif" data-identifier="front-face">
     </div>`
     }
-
 
     for (let j = 0; j < pares; j++) {
         cartas.push(cartas[j]);
     }
 
     cartas.sort(comparador);
-    // Fazer o random aqui antes do inner HTML
 
     for (let k = 0; k < cartas.length; k++) {
         main.innerHTML += (cartas[k]);
     }
-}
+} 
 
 function comparador() {
     return Math.random() - 0.5;
@@ -67,42 +68,40 @@ function virarCarta(clique) {
         const clicada = clique.querySelector(".frente");
         carta1 = clicada;
     }
-    else{
-            clique.classList.add("clicked2");
-            clique.classList.add("rotacao");
-            const clicada2 = clique.querySelector(".frente");
-            carta2 = clicada2;
-        }
-        setTimeout(colocaGif, 1000);
-        contadorJogadas();
-        tempo = setInterval(aumentaSegundos, 1000);
-
+    else {
+        clique.classList.add("clicked2");
+        clique.classList.add("rotacao");
+        const clicada2 = clique.querySelector(".frente");
+        carta2 = clicada2;
+    }
+    setTimeout(colocaGif, 1000);
+    contadorJogadas();
     
+
+
+
+
 }
 
 function colocaGif() {
     const trocarImg1 = document.querySelector(".clicked .verso");
     if (trocarImg1 !== null) {
         trocarImg1.classList.add("escondido");
-        // const pai = trocarImg1.parentNode;
-        // pai.classList.add("rotacao");
         const gifIn = document.querySelector(".clicked .frente");
         gifIn.classList.remove("escondido");
     }
     const trocarImg2 = document.querySelector(".clicked2 .verso");
     if (trocarImg2 !== null) {
         trocarImg2.classList.add("escondido");
-        // const pai = trocarImg2.parentNode;
-        // pai.classList.add("rotacao");
         const gifIn = document.querySelector(".clicked2 .frente");
         gifIn.classList.remove("escondido");
-        setTimeout(verificarPar, 2500)
+        setTimeout(verificarPar, 1500);
     }
-    // verificarPar();
+    
 }
 
-function verificarPar(){
-    if(carta1.isEqualNode(carta2)){
+function verificarPar() {
+    if (carta1.isEqualNode(carta2)) {
         console.log("deu");
         let achouOPar1 = document.querySelector(".clicked");
         achouOPar1.classList.add("encontrada");
@@ -111,7 +110,7 @@ function verificarPar(){
         achouOPar2.classList.add("encontrada");
         achouOPar2.classList.remove("clicked2");
         encontradas += 2;
-        
+
     } else {
         console.log("fold");
         //carta1
@@ -129,38 +128,51 @@ function verificarPar(){
         pai2.classList.remove("rotacao");
         pai2.classList.remove("clicked2");
         let voltaPpg2 = pai2.querySelector(".verso");
-        voltaPpg2.classList.remove("escondido");   
+        voltaPpg2.classList.remove("escondido");
     }
     carta1 = null;
     carta2 = null;
+    jogoFinalizado();
 }
 
-function aumentaSegundos(){
-    // if( encontradas == cartas.length){
-    //     clearInterval(tempo);
-    // }
-    // else{
-        // relogio.innerHTML = parseInt(relogio.innerHTML) + 1;
-    
-}
-
-
-
-// }
-// function jogarMaisUmaVez (){
-//     if{paresEncontrados=pares}{
-
-//     }
+// function aumentaSegundos() {
+//         relogio.innerHTML = parseInt(relogio.innerHTML) + 1;
 // }
 
-let jogadas = 0;
 
 function contadorJogadas() {
     jogadas += 1;
 }
 
+function jogoFinalizado(){
+    if (encontradas == numeroDeCartas){
+        alert(`Parabéns! Você ganhou em ${jogadas} jogadas`);
+        jogarMaisUmaVez();
+    }
+}
+    
+    
+    function jogarMaisUmaVez (){
+        jogarDeNovo = prompt(`Você deseja jogar de novo? (Responda com S ou N)`);
+        if(jogarDeNovo == "S" || jogarDeNovo == "s") {
+            let reinicia = true;
+            document.location.reload(reinicia);
+            return;
+        } if(jogarDeNovo == "N" || jogarDeNovo == "n"){
+            return;
+        } else { jogarMaisUmaVez();  }
+        
+    }
 
-//Chamando as funções: 
+    
 
-quantidadeDeCartas();
-aplicarQuantidadeDeCartas();
+  
+
+
+    //Chamando as funções: 
+
+    quantidadeDeCartas();
+    aplicarQuantidadeDeCartas();
+    
+
+
